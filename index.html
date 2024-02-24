@@ -30,9 +30,9 @@
         <p>I completed the trial by fire. It went a lot like this: play, pause, play, pause, rewind, play, pause. You get the gist.</p>
     </article>
 
-    <article  id="new-entry">
+    <section  id="new-entry">
         <!-- Existing blog articles will go here -->
-    </article>
+    </section>
 
     <section>
         <form id="new-entry-form">
@@ -53,11 +53,11 @@
         newEntry.preventDefault(); // Prevent form submission
 
         // Get user input values
-        var date = document.getElementById('date').value;
-        var content = document.getElementById('entry').value;
+        const date = document.getElementById('date').value;
+        const content = document.getElementById('entry').value;
 
         // Create a new article element
-        var entry = document.createElement('article');
+        const entry = document.createElement('article');
         entry.innerHTML = '<h2 class="date">' + date + '</h2><p>' + content + '</p>';
 
         // Add the new article to the blog section
