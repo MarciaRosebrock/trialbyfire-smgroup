@@ -6,6 +6,8 @@
 </head>
 
 <body>
+    <div id="read-time"></div>
+
     <h1>Learning to Code</h1>
         <h2>This is my journey (take 2) of learning to code.</h2>
     <article>
@@ -69,7 +71,19 @@
     return wordCount;
     }
 
-    console.log("Total words:", getWordCount());    
+    function calculateAndDisplayReadTime() {
+            const wordCount = getWordCount();
+            const readingSpeed = 4; // words per second
+            const readTimeSeconds = wordCount / readingSpeed;
+
+            const readTimeMinutes = Math.ceil(readTimeSeconds / 60); // Round up to nearest minute
+
+            console.log("Total words:", wordCount);
+            console.log("Read time:", readTimeMinutes, "minutes");
+
+            // Update read time in the top right-hand corner
+            document.getElementById('read-time').textContent = `Read Time: ${readTimeMinutes} min`;
+        }   
     </script>
 </body>
 </html>
