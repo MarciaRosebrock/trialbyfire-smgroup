@@ -4,17 +4,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
-        article {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #F6B3D9;
-            padding: 20px;
-            margin: 20px;
-            max-width: 500px;
-        }
-        h1 {
-            color: #BB1E77
-        }
+
     </style>
 </head>
 
@@ -65,6 +55,25 @@
         // Clear form fields
         document.getElementById('new-entry-form').reset();
     });
+// This is for the inital render
+renderArticles();
+
+    function getReadTime() {
+    let paragraphs = document.getElementsByTagName(p).innerText.match(/\S+/g).length
+    let pWordCount = 0
+    console.log(paragraphs)
+
+    for (paragraph of paragraphs) {
+        console.log(paragraph)
+        pWordCount += paragraph.innerText.match(/\S+/g).length
+    }
+
+    let h2WordCount = document.getElementsByTagName(h2).innerText.match(/\S+/g).length
+
+    let totalWordCount = pWordCount + h2WordCount
+
+    return totalWordCount
+    }
     </script>
 </body>
 </html>
