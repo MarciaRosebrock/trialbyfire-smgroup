@@ -51,6 +51,9 @@
         // Add the new article to the blog section
         document.getElementById('new-entry').appendChild(entry);
 
+        // Calculate read time and display
+        calculateAndDisplayReadTime();
+
         // Clear form fields
         document.getElementById('new-entry-form').reset();
     });
