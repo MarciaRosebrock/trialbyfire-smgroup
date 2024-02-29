@@ -3,9 +3,6 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -55,25 +52,26 @@
         // Clear form fields
         document.getElementById('new-entry-form').reset();
     });
-// This is for the inital render
-renderArticles();
+    // This is for the inital render
+    renderArticles();
 
-    function getReadTime() {
-    let paragraphs = document.getElementsByTagName(p).innerText.match(/\S+/g).length
-    let pWordCount = 0
-    console.log(paragraphs)
+    function getWordCount() {
+        let paragraphs = document.getElementsByTagName('p');
+        let h2s = document.getElementsByTagName('h2');
+        let wordCount = 0;
 
-    for (paragraph of paragraphs) {
-        console.log(paragraph)
-        pWordCount += paragraph.innerText.match(/\S+/g).length
+        for (let i = 0; i < paragraphs.length; i++) {
+            wordCount += paragraphs[i].innerText.split(/\s+/).length;
+        }
+
+        for (let i = 0; i < h2s.length; i++) {
+            wordCount += h2s[i].innerText.split(/\s+/).length;
+        }
+
+    return wordCount;
     }
 
-    let h2WordCount = document.getElementsByTagName(h2).innerText.match(/\S+/g).length
-
-    let totalWordCount = pWordCount + h2WordCount
-
-    return totalWordCount
-    }
+    console.log("Total words:", getWordCount());    
     </script>
 </body>
 </html>
