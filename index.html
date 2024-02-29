@@ -13,10 +13,12 @@
     <article>
         <h2 class="date">2/3/24</h2>
         <p>I enacted my superpower: Ladderly with John.</p>
+        <button class="delete-btn">Delete</button>
     </article>
     <article>
         <h2 class="date">2/10/24</h2>
         <p>I completed the trial by fire. It went a lot like this: play, pause, play, pause, rewind, play, pause. You get the gist.</p>
+        <button class="delete-btn">Delete</button>
     </article>
 
     <section  id="new-entry">
@@ -51,6 +53,12 @@
         const entry = document.createElement('article');
         entry.innerHTML = '<h2 class="date">' + date + '</h2><p>' + content + '</p>';
 
+        // Add a delete button to the new article
+        const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.className = 'delete-btn';
+            entry.appendChild(deleteButton);
+
         // Add the new article to the blog section
         document.getElementById('new-entry').appendChild(entry);
 
@@ -60,6 +68,15 @@
         // Clear form fields
         document.getElementById('new-entry-form').reset();
     });
+
+     // Event listener for delete buttons
+     document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-btn')) {
+                const article = event.target.closest('article');
+                article.remove();
+                calculateAndDisplayReadTime(); // Recalculate read time after deletion
+            }
+        });
 
     function getWordCount() {
         let paragraphs = document.getElementsByTagName('p');
@@ -83,9 +100,6 @@
             const readTimeSeconds = wordCount / readingSpeed;
 
             const readTimeMinutes = Math.ceil(readTimeSeconds / 60); // Round up to nearest minute
-
-            console.log("Total words:", wordCount);
-            console.log("Read time:", readTimeMinutes, "minutes");
 
             // Update read time in the top right-hand corner
             document.getElementById('read-time').textContent = `Read Time: ${readTimeMinutes} min`;
