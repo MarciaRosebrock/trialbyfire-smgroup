@@ -33,6 +33,13 @@
             <label for="entry">How'd it go?</label>
             <input type="text" name="entry" id="entry">
 
+            <!-- Font selection dropdown -->
+            <label for="font-select">Select Font:</label>
+            <select id="font-select">
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Times New Roman, serif">Times New Roman</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+
             <input type="submit" name="submit">
         </form>
     </section>
@@ -48,10 +55,11 @@
         // Get user input values
         const date = document.getElementById('date').value;
         const content = document.getElementById('entry').value;
+        const font = document.getElementById('font-select').value;
 
         // Create a new article element
         const entry = document.createElement('article');
-        entry.innerHTML = '<h2 class="date">' + date + '</h2><p>' + content + '</p>';
+        entry.innerHTML = '<h2 class="date">' + date + '</h2><p style="font-family: ' + font + '">' + content + '</p>';
 
         // Add a delete button to the new article
         const deleteButton = document.createElement('button');
