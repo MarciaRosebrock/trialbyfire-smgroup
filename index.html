@@ -40,6 +40,10 @@
                 <option value="Times New Roman, serif">Times New Roman</option>
                 <option value="Verdana, sans-serif">Verdana</option>
 
+            <!-- Background color picker -->
+            <label for="background-color">Select Background Color:</label>
+            <input type="color" id="background-color" name="background-color">
+
             <input type="submit" name="submit">
         </form>
     </section>
@@ -56,10 +60,17 @@
         const date = document.getElementById('date').value;
         const content = document.getElementById('entry').value;
         const font = document.getElementById('font-select').value;
+        const backgroundColor = document.getElementById('background-color').value
 
         // Create a new article element
         const entry = document.createElement('article');
-        entry.innerHTML = '<h2 class="date">' + date + '</h2><p style="font-family: ' + font + '">' + content + '</p>';
+        entry.innerHTML = '<h2 class="date">' + date + '</h2><p>' + content + '</p>';
+
+        // Add custom style for paragraph if needed
+        entry.querySelector('p').style.font = font
+
+         // Add custom background color
+        entry.querySelector('p').style.backgroundColor = backgroundColor;
 
         // Add a delete button to the new article
         const deleteButton = document.createElement('button');
