@@ -67,10 +67,10 @@
         entry.innerHTML = '<h2 class="date">' + date + '</h2><p>' + content + '</p>';
 
         // Add custom style for paragraph if needed
-        entry.querySelector('p').style.font = font
+        entry.querySelector('p').style.fontFamily = font
 
          // Add custom background color
-        entry.querySelector('p').style.backgroundColor = backgroundColor;
+        entry.querySelector('article').style.backgroundColor = backgroundColor;
 
         // Add a delete button to the new article
         const deleteButton = document.createElement('button');
