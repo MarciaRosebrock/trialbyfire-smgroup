@@ -39,6 +39,7 @@
                 <option value="Arial, sans-serif">Arial</option>
                 <option value="Times New Roman, serif">Times New Roman</option>
                 <option value="Verdana, sans-serif">Verdana</option>
+            </select>
 
             <!-- Background color picker -->
             <label for="background-color">Select Background Color:</label>
@@ -66,7 +67,7 @@
         const entry = document.createElement('article');
         entry.innerHTML = '<h2 class="date">' + date + '</h2><p>' + content + '</p>';
 
-        // Add custom style for paragraph if needed
+        // Add custom font
         entry.querySelector('p').style.fontFamily = font;
 
          // Add custom background color
