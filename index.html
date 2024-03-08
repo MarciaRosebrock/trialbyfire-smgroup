@@ -57,38 +57,14 @@
         // Display read time upon loading
         calculateAndDisplayReadTime();
 
-        // Load entries from localStorage on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            loadEntries();
-        });
-
-        // Function to load entries from localStorage
-        function loadEntries() {
-            const entries = JSON.parse(localStorage.getItem('entries')) || [];
-            const newEntrySection = document.getElementById('new-entry');
-            newEntrySection.innerHTML = ''; // Clear existing entries
-
-            entries.forEach(function(entryData) {
-                const entry = createEntryElement(entryData.date, entryData.content, entryData.font, entryData.backgroundColor);
-                newEntrySection.appendChild(entry);
-            });
-
         // Event listener for delete buttons
         document.addEventListener('click', function(event) {
             if (event.target.classList.contains('delete-btn')) {
             const article = event.target.closest('article');
             article.remove();
             calculateAndDisplayReadTime(); // Recalculate read time after deletion
-
-        // Also remove the deleted entry from localStorage
-            const date = article.querySelector('.date').textContent;
-            removeEntryFromLocalStorage(date);
-            }
-        });
-
-        // Recalculate read time
-        calculateAndDisplayReadTime();
         }
+    });
 
         // Function to handle form submission
         document.getElementById('new-entry-form').addEventListener('submit', function(newEntry) {
@@ -119,22 +95,12 @@
         // Add the new article to the blog section
         document.getElementById('new-entry').appendChild(entry);
 
-        // Save the entry data to localStorage
-        saveEntryToLocalStorage(date, content, font, backgroundColor);
-
         // Calculate read time and display
         calculateAndDisplayReadTime();
 
         // Clear form fields
         document.getElementById('new-entry-form').reset();
     });
-
-        // Function to save entry to localStorage
-        function saveEntryToLocalStorage(date, content, font, backgroundColor) {
-        const entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.push({ date: date, content: content, font: font, backgroundColor: backgroundColor });
-        localStorage.setItem('entries', JSON.stringify(entries));
-        }
 
     function getWordCount() {
         let paragraphs = document.getElementsByTagName('p');
