@@ -58,33 +58,33 @@
                 }
             });
 
-        // Function to handle form submission
+            // Function to handle form submission
             document.getElementById('new-entry-form').addEventListener('submit', function(newEntry) {
-            newEntry.preventDefault(); // Prevent form submission
+                newEntry.preventDefault(); // Prevent form submission
 
-            // Get user input values
-            const date = document.getElementById('date').value;
-            const content = document.getElementById('entry').value;
-            const font = document.getElementById('font-select').value;
-            const backgroundColor = document.getElementById('background-color').value
+                // Get user input values
+                const date = document.getElementById('date').value;
+                const content = document.getElementById('entry').value;
+                const font = document.getElementById('font-select').value;
+                const backgroundColor = document.getElementById('background-color').value
 
-            // Create a new article object
-            const newArticle = {
-                date: date,
-                content: content,
-                font: font,
-                backgroundColor: backgroundColor
-            };
-        });
+                // Create a new article object
+                const newArticle = {
+                    date: date,
+                    content: content,
+                    font: font,
+                    backgroundColor: backgroundColor
+                };
 
-            // Render the new article
-            renderArticle(newArticle);
+                // Render the new article
+                renderArticle(newArticle);
 
-            saveArticles(); // Save articles after addition
-            calculateAndDisplayReadTime(); // Recalculate read time
+                saveArticles(); // Save articles after addition
+                calculateAndDisplayReadTime(); // Recalculate read time
 
-            // Clear form fields
-            document.getElementById('new-entry-form').reset();
+                // Clear form fields
+                document.getElementById('new-entry-form').reset();
+            });
         });
 
         function renderArticle(article) {
