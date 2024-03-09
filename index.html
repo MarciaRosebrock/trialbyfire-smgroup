@@ -88,6 +88,7 @@
         });
 
         function renderArticle(article) {
+            console.log("Rendering article:", article); // Debugging statement
             // Create a new article element
             const entry = document.createElement('article');
             entry.innerHTML = '<h2 class="date">' + article.date + '</h2><p>' + article.content + '</p>';
