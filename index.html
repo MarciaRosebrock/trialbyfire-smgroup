@@ -54,8 +54,10 @@
     </section>
 
     <script>
-        // Display read time upon loading
-        calculateAndDisplayReadTime();
+        document.addEventListener('DOMContentLoaded', function () {
+            loadOriginalArticles(); // Load original articles as objects
+            loadArticles(); // Load articles on page load
+            calculateAndDisplayReadTime(); // Calculate and display read time
 
         // Event listener for delete buttons
         document.addEventListener('click', function(event) {
@@ -76,31 +78,62 @@
         const font = document.getElementById('font-select').value;
         const backgroundColor = document.getElementById('background-color').value
 
-        // Create a new article element
-        const entry = document.createElement('article');
-        entry.innerHTML = '<h2 class="date">' + date + '</h2><p>' + content + '</p>';
+        // Create a new article object
+        const newArticle = {
+            date: date,
+            content: content,
+            font: font,
+            backgroundColor: backgroundColor
+        };
 
-        // Add custom font
-        entry.querySelector('p').style.fontFamily = font;
+        // Render the new article
+        renderArticle(newArticle);
 
-         // Add custom background color
-        entry.style.backgroundColor = backgroundColor;
-
-        // Add a delete button to the new article
-        const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'X';
-            deleteButton.className = 'delete-btn';
-            entry.appendChild(deleteButton);
-
-        // Add the new article to the blog section
-        document.getElementById('new-entry').appendChild(entry);
-
-        // Calculate read time and display
-        calculateAndDisplayReadTime();
+        saveArticles(); // Save articles after addition
+        calculateAndDisplayReadTime(); // Recalculate read time
 
         // Clear form fields
         document.getElementById('new-entry-form').reset();
     });
+
+    function loadOriginalArticles() {
+        const originalArticles = [];
+        const articleElements = document.querySelectorAll('#articles article');
+        articleElements.forEach(function (articleElement) {
+            const date = articleElement.querySelector('.date').textContent;
+            const content = articleElement.querySelector('p').textContent;
+            const font = 'inherit'; // Font will be inherited from the stylesheet
+            const backgroundColor = 'inherit'; // Background color will be inherited from the stylesheet
+
+            originalArticles.push({
+                date: date,
+                content: content,
+                font: font,
+                backgroundColor: backgroundColor
+                });
+        });
+        localStorage.setItem('originalArticles', JSON.stringify(originalArticles));
+    }
+    function renderArticle(article) {
+        // Create a new article element
+        const entry = document.createElement('article');
+        entry.innerHTML = '<h2 class="date">' + article.date + '</h2><p>' + article.content + '</p>';
+
+        // Add custom font
+        entry.querySelector('p').style.fontFamily = article.font;
+
+        // Add custom background color
+        entry.style.backgroundColor = article.backgroundColor;
+
+        // Add a delete button to the new article
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'X';
+        deleteButton.className = 'delete-btn';
+        entry.appendChild(deleteButton);
+    }
+
+        // Add the new article to the articles section
+        document.getElementById('articles').appendChild(entry);
 
     function getWordCount() {
         let paragraphs = document.getElementsByTagName('p');
@@ -127,7 +160,34 @@
 
             // Update read time in the top right-hand corner
             document.getElementById('read-time').textContent = `Read Time: ${readTimeMinutes} min`;
-        }   
+        }
+    function saveArticles() {
+        const articles = [];
+        const articleElements = document.querySelectorAll('#articles article');
+        articleElements.forEach(function (articleElement) {
+            const date = articleElement.querySelector('.date').textContent;
+            const content = articleElement.querySelector('p').textContent;
+            const font = articleElement.querySelector('p').style.fontFamily;
+            const backgroundColor = articleElement.style.backgroundColor;
+
+            articles.push({
+                date: date,
+                content: content,
+                font: font,
+                backgroundColor: backgroundColor
+                });
+        });
+        localStorage.setItem('articles', JSON.stringify(articles));
+        }
+        function loadArticles() {
+            const articlesData = localStorage.getItem('articles');
+            if (articlesData) {
+                const articles = JSON.parse(articlesData);
+                articles.forEach(function (article) {
+                    renderArticle(article);
+                });
+            }
+        }
     </script>
 </body>
 </html>
