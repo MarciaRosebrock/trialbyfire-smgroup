@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
 <body>
     <div id="read-time"></div>
-
     <h1>Learning to Code</h1>
-        <h2>This is my journey (take 2) of learning to code.</h2>
+    <h2>This is my journey (take 2) of learning to code.</h2>
     <article>
         <h2 class="date">2/3/24</h2>
         <p>I enacted my superpower: Ladderly with John.</p>
@@ -20,166 +17,142 @@
         <p>I completed the trial by fire. It went a lot like this: play, pause, play, pause, rewind, play, pause. You get the gist.</p>
         <button class="delete-btn">X</button>
     </article>
-
-    <section  id="new-entry">
+    <section id="articles">
         <!-- Existing blog articles will go here -->
     </section>
-
     <section>
         <form id="new-entry-form">
             <label for="date">Date:</label>
             <input type="text" name="date" id="date">
-
             <label for="entry">How'd it go?</label>
             <input type="text" name="entry" id="entry">
-
             <!-- Font selection dropdown -->
             <div class="custom-options">
-            <label for="font-select">Select Font:</label>
-            <select id="font-select">
-                <option value="Arial, sans-serif">Arial</option>
-                <option value="Times New Roman, serif">Times New Roman</option>
-                <option value="Verdana, sans-serif">Verdana</option>
-            </select>
+                <label for="font-select">Select Font:</label>
+                <select id="font-select">
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="Times New Roman, serif">Times New Roman</option>
+                    <option value="Verdana, sans-serif">Verdana</option>
+                </select>
             </div>
-
             <!-- Background color picker -->
             <div class="custom-options">
-            <label for="background-color">Select Background Color:</label>
-            <input type="color" id="background-color" name="background-color">
+                <label for="background-color">Select Background Color:</label>
+                <input type="color" id="background-color" name="background-color">
             </div>
-
             <input type="submit" name="submit">
         </form>
     </section>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            loadOriginalArticles(); // Load original articles as objects
             loadArticles(); // Load articles on page load
             calculateAndDisplayReadTime(); // Calculate and display read time
-        });
-        // Event listener for delete buttons
-        document.getElementById('articles').addEventListener('click', function(event) {
-            if (event.target.classList.contains('delete-btn')) {
-            const article = event.target.closest('article');
-            article.remove();
-            saveArticles(); // Save articles after deletion
-            calculateAndDisplayReadTime(); // Recalculate read time after deletion
-            }
-        });
+
+            // Event listener for delete buttons
+            document.getElementById('articles').addEventListener('click', function(event) {
+                if (event.target.classList.contains('delete-btn')) {
+                    const article = event.target.closest('article');
+                    article.remove();
+                    saveArticles(); // Save articles after deletion
+                    calculateAndDisplayReadTime(); // Recalculate read time after deletion
+                }
+            });
 
         // Function to handle form submission
-        document.getElementById('new-entry-form').addEventListener('submit', function(newEntry) {
-        newEntry.preventDefault(); // Prevent form submission
+            document.getElementById('new-entry-form').addEventListener('submit', function(newEntry) {
+            newEntry.preventDefault(); // Prevent form submission
 
-        // Get user input values
-        const date = document.getElementById('date').value;
-        const content = document.getElementById('entry').value;
-        const font = document.getElementById('font-select').value;
-        const backgroundColor = document.getElementById('background-color').value
+            // Get user input values
+            const date = document.getElementById('date').value;
+            const content = document.getElementById('entry').value;
+            const font = document.getElementById('font-select').value;
+            const backgroundColor = document.getElementById('background-color').value
 
-        // Create a new article object
-        const newArticle = {
-            date: date,
-            content: content,
-            font: font,
-            backgroundColor: backgroundColor
-        };
-
-        // Render the new article
-        renderArticle(newArticle);
-
-        saveArticles(); // Save articles after addition
-        calculateAndDisplayReadTime(); // Recalculate read time
-
-        // Clear form fields
-        document.getElementById('new-entry-form').reset();
-
-    function loadOriginalArticles() {
-        const originalArticles = [];
-        const articleElements = document.querySelectorAll('#articles article');
-        articleElements.forEach(function (articleElement) {
-            const date = articleElement.querySelector('.date').textContent;
-            const content = articleElement.querySelector('p').textContent;
-            const font = 'inherit'; // Font will be inherited from the stylesheet
-            const backgroundColor = 'inherit'; // Background color will be inherited from the stylesheet
-
-            originalArticles.push({
+            // Create a new article object
+            const newArticle = {
                 date: date,
                 content: content,
                 font: font,
                 backgroundColor: backgroundColor
-                });
+            };
         });
-        localStorage.setItem('originalArticles', JSON.stringify(originalArticles));
-    }
-    function renderArticle(article) {
-        // Create a new article element
-        const entry = document.createElement('article');
-        entry.innerHTML = '<h2 class="date">' + article.date + '</h2><p>' + article.content + '</p>';
 
-        // Add custom font
-        entry.querySelector('p').style.fontFamily = article.font;
+            // Render the new article
+            renderArticle(newArticle);
 
-        // Add custom background color
-        entry.style.backgroundColor = article.backgroundColor;
+            saveArticles(); // Save articles after addition
+            calculateAndDisplayReadTime(); // Recalculate read time
 
-        // Add a delete button to the new article
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'X';
-        deleteButton.className = 'delete-btn';
-        entry.appendChild(deleteButton);
-    
-        // Add the new article to the articles section
-        document.getElementById('articles').appendChild(entry);
-    }
-});
+            // Clear form fields
+            document.getElementById('new-entry-form').reset();
+        });
 
-    function getWordCount() {
-        let paragraphs = document.getElementsByTagName('p');
-        let h2s = document.getElementsByTagName('h2');
-        let wordCount = 0;
+        function renderArticle(article) {
+            // Create a new article element
+            const entry = document.createElement('article');
+            entry.innerHTML = '<h2 class="date">' + article.date + '</h2><p>' + article.content + '</p>';
 
-        for (let i = 0; i < paragraphs.length; i++) {
-            wordCount += paragraphs[i].innerText.split(/\s+/).length;
+            // Add custom font
+            entry.querySelector('p').style.fontFamily = article.font;
+
+            // Add custom background color
+            entry.style.backgroundColor = article.backgroundColor;
+
+            // Add a delete button to the new article
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'X';
+            deleteButton.className = 'delete-btn';
+            entry.appendChild(deleteButton);
+
+            // Add the new article to the articles section
+            document.getElementById('articles').appendChild(entry);
         }
 
-        for (let i = 0; i < h2s.length; i++) {
-            wordCount += h2s[i].innerText.split(/\s+/).length;
+        function getWordCount() {
+            let paragraphs = document.getElementsByTagName('p');
+            let h2s = document.getElementsByTagName('h2');
+            let wordCount = 0;
+
+            for (let i = 0; i < paragraphs.length; i++) {
+                wordCount += paragraphs[i].innerText.split(/\s+/).length;
+            }
+
+            for (let i = 0; i < h2s.length; i++) {
+                wordCount += h2s[i].innerText.split(/\s+/).length;
+            }
+
+            return wordCount;
         }
 
-    return wordCount;
-    }
-
-    function calculateAndDisplayReadTime() {
+        function calculateAndDisplayReadTime() {
             const wordCount = getWordCount();
             const readingSpeed = 4; // words per second
             const readTimeSeconds = wordCount / readingSpeed;
-
             const readTimeMinutes = Math.ceil(readTimeSeconds / 60); // Round up to nearest minute
 
             // Update read time in the top right-hand corner
             document.getElementById('read-time').textContent = `Read Time: ${readTimeMinutes} min`;
         }
-    function saveArticles() {
-        const articles = [];
-        const articleElements = document.querySelectorAll('#articles article');
-        articleElements.forEach(function (articleElement) {
-            const date = articleElement.querySelector('.date').textContent;
-            const content = articleElement.querySelector('p').textContent;
-            const font = articleElement.querySelector('p').style.fontFamily;
-            const backgroundColor = articleElement.style.backgroundColor;
 
-            articles.push({
-                date: date,
-                content: content,
-                font: font,
-                backgroundColor: backgroundColor
+        function saveArticles() {
+            const articles = [];
+            const articleElements = document.querySelectorAll('#articles article');
+            articleElements.forEach(function (articleElement) {
+                const date = articleElement.querySelector('.date').textContent;
+                const content = articleElement.querySelector('p').textContent;
+                const font = articleElement.querySelector('p').style.fontFamily;
+                const backgroundColor = articleElement.style.backgroundColor;
+
+                articles.push({
+                    date: date,
+                    content: content,
+                    font: font,
+                    backgroundColor: backgroundColor
                 });
-        });
-        localStorage.setItem('articles', JSON.stringify(articles));
+            });
+            localStorage.setItem('articles', JSON.stringify(articles));
         }
+
         function loadArticles() {
             const articlesData = localStorage.getItem('articles');
             if (articlesData) {
