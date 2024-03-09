@@ -58,17 +58,16 @@
             loadOriginalArticles(); // Load original articles as objects
             loadArticles(); // Load articles on page load
             calculateAndDisplayReadTime(); // Calculate and display read time
-        )};
-
-   // Event listener for delete buttons
+        });
+        // Event listener for delete buttons
         document.getElementById('articles').addEventListener('click', function(event) {
             if (event.target.classList.contains('delete-btn')) {
             const article = event.target.closest('article');
             article.remove();
             saveArticles(); // Save articles after deletion
             calculateAndDisplayReadTime(); // Recalculate read time after deletion
-    }
-    });
+            }
+        });
 
         // Function to handle form submission
         document.getElementById('new-entry-form').addEventListener('submit', function(newEntry) {
@@ -132,7 +131,6 @@
         deleteButton.className = 'delete-btn';
         entry.appendChild(deleteButton);
     
-
         // Add the new article to the articles section
         document.getElementById('articles').appendChild(entry);
     }
