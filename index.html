@@ -59,13 +59,14 @@
             loadArticles(); // Load articles on page load
             calculateAndDisplayReadTime(); // Calculate and display read time
 
-        // Event listener for delete buttons
-        document.addEventListener('click', function(event) {
+   // Event listener for delete buttons
+        document.getElementById('articles').addEventListener('click', function(event) {
             if (event.target.classList.contains('delete-btn')) {
             const article = event.target.closest('article');
             article.remove();
+            saveArticles(); // Save articles after deletion
             calculateAndDisplayReadTime(); // Recalculate read time after deletion
-        }
+    }
     });
 
         // Function to handle form submission
