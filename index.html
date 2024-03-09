@@ -94,7 +94,6 @@
 
         // Clear form fields
         document.getElementById('new-entry-form').reset();
-    });
 
     function loadOriginalArticles() {
         const originalArticles = [];
@@ -130,10 +129,12 @@
         deleteButton.textContent = 'X';
         deleteButton.className = 'delete-btn';
         entry.appendChild(deleteButton);
-    }
+    
 
         // Add the new article to the articles section
         document.getElementById('articles').appendChild(entry);
+    }
+});
 
     function getWordCount() {
         let paragraphs = document.getElementsByTagName('p');
