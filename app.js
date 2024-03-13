@@ -8,8 +8,8 @@ document.getElementById('articles').addEventListener('click', function(event) {
 });
 
 // Function to handle form submission
-document.getElementById('new-entry-form').addEventListener('submit', function(newEntry) {
-newEntry.preventDefault(); // Prevent form submission
+document.getElementById('new-entry-form').addEventListener('submit', function(event) {
+event.preventDefault(); // Prevent form submission
 
 // Get values from the form
     const date = document.getElementById('date').value;
