@@ -17,9 +17,11 @@
         <p>I completed the trial by fire. It went a lot like this: play, pause, play, pause, rewind, play, pause. You get the gist.</p>
         <button class="delete-btn">X</button>
     </article>
+    
     <section id="articles">
         <!-- Existing blog articles will go here -->
     </section>
+    
     <section>
         <form id="new-entry-form">
             <label for="date">Date:</label>
@@ -43,52 +45,31 @@
             <input type="submit" name="submit">
         </form>
     </section>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            loadArticles(); // Load articles on page load
-            calculateAndDisplayReadTime(); // Calculate and display read time
+        // Event listener for delete buttons
+        document.getElementById('articles').addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-btn')) {
+                const article = event.target.closest('article');
+                article.remove();
+                calculateAndDisplayReadTime(); // Recalculate read time after deletion
+            }
+        });
 
-            // Event listener for delete buttons
-            document.getElementById('articles').addEventListener('click', function(event) {
-                if (event.target.classList.contains('delete-btn')) {
-                    const article = event.target.closest('article');
-                    article.remove();
-                    saveArticles(); // Save articles after deletion
-                    calculateAndDisplayReadTime(); // Recalculate read time after deletion
-                }
-            });
+        // Function to handle form submission
+        document.getElementById('new-entry-form').addEventListener('submit', function(event) {
+        newEntry.preventDefault(); // Prevent form submission
 
-            // Function to handle form submission
-            document.getElementById('new-entry-form').addEventListener('submit', function(event) {
-                newEntry.preventDefault(); // Prevent form submission
+        // Render the new article
+        renderArticle(newArticle);
 
-                // Get user input values
-                const date = document.getElementById('date').value;
-                const content = document.getElementById('entry').value;
-                const font = document.getElementById('font-select').value;
-                const backgroundColor = document.getElementById('background-color').value
+        calculateAndDisplayReadTime(); // Recalculate read time
 
-                // Create a new article object
-                const newArticle = {
-                    date: date,
-                    content: content,
-                    font: font,
-                    backgroundColor: backgroundColor
-                };
-
-                // Render the new article
-                renderArticle(newArticle);
-
-                saveArticles(); // Save articles after addition
-                calculateAndDisplayReadTime(); // Recalculate read time
-
-                // Clear form fields
-                document.getElementById('new-entry-form').reset();
-            });
+        // Clear form fields
+        document.getElementById('new-entry-form').reset();
         });
 
         function renderArticle(article) {
-            console.log("Rendering article:", article); // Debugging statement
             // Create a new article element
             const entry = document.createElement('article');
             entry.innerHTML = '<h2 class="date">' + article.date + '</h2><p>' + article.content + '</p>';
@@ -133,35 +114,6 @@
 
             // Update read time in the top right-hand corner
             document.getElementById('read-time').textContent = `Read Time: ${readTimeMinutes} min`;
-        }
-
-        function saveArticles() {
-            const articles = [];
-            const articleElements = document.querySelectorAll('#articles article');
-            articleElements.forEach(function (articleElement) {
-                const date = articleElement.querySelector('.date').textContent;
-                const content = articleElement.querySelector('p').textContent;
-                const font = articleElement.querySelector('p').style.fontFamily;
-                const backgroundColor = articleElement.style.backgroundColor;
-
-                articles.push({
-                    date: date,
-                    content: content,
-                    font: font,
-                    backgroundColor: backgroundColor
-                });
-            });
-            localStorage.setItem('articles', JSON.stringify(articles));
-        }
-
-        function loadArticles() {
-            const articlesData = localStorage.getItem('articles');
-            if (articlesData) {
-                const articles = JSON.parse(articlesData);
-                articles.forEach(function (article) {
-                    renderArticle(article);
-                });
-            }
         }
     </script>
 </body>
