@@ -65,34 +65,17 @@
             const entry = document.getElementById('entry').value;
             const font = document.getElementById('font-select').value;
             const backgroundColor = document.getElementById('background-color').value;
-
-        // Create an object for the new article
-            const newArticle = {
-                date: date,
-                content: entry,
-                font: font,
-                backgroundColor: backgroundColor
-            };
-
-         // Render the new article
-         renderArticle(newArticle);// Render the new article
-
-        calculateAndDisplayReadTime(); // Recalculate read time
-
-        // Clear form fields
-        document.getElementById('new-entry-form').reset();
-        });
-
-        function renderArticle(article) {
+   
+        function renderArticle(date, content, font, backgroundColor) {
             // Create a new article element
             const entry = document.createElement('article');
-            entry.innerHTML = '<h2 class="date">' + article.date + '</h2><p>' + article.content + '</p>';
+            entry.innerHTML = '<h2 class="date">' + date + '</h2><p>' + content + '</p>';
 
             // Add custom font
-            entry.querySelector('p').style.fontFamily = article.font;
+            entry.querySelector('p').style.fontFamily = font;
 
             // Add custom background color
-            entry.style.backgroundColor = article.backgroundColor;
+            entry.style.backgroundColor = backgroundColor;
 
             // Add a delete button to the new article
             const deleteButton = document.createElement('button');
@@ -103,6 +86,12 @@
             // Add the new article to the articles section
             document.getElementById('articles').appendChild(entry);
         }
+
+        calculateAndDisplayReadTime(); // Recalculate read time
+
+        // Clear form fields
+        document.getElementById('new-entry-form').reset();
+        });
 
         function getWordCount() {
             let paragraphs = document.getElementsByTagName('p');
