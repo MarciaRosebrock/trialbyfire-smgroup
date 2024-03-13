@@ -59,9 +59,23 @@
         // Function to handle form submission
         document.getElementById('new-entry-form').addEventListener('submit', function(event) {
         newEntry.preventDefault(); // Prevent form submission
+        
+        // Get values from the form
+            const date = document.getElementById('date').value;
+            const entry = document.getElementById('entry').value;
+            const font = document.getElementById('font-select').value;
+            const backgroundColor = document.getElementById('background-color').value;
 
-        // Render the new article
-        renderArticle(newArticle);
+        // Create an object for the new article
+            const newArticle = {
+                date: date,
+                content: entry,
+                font: font,
+                backgroundColor: backgroundColor
+            };
+
+         // Render the new article
+         renderArticle(newArticle);// Render the new article
 
         calculateAndDisplayReadTime(); // Recalculate read time
 
