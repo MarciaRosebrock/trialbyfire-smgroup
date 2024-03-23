@@ -7,6 +7,52 @@ document.getElementById('articles').addEventListener('click', function(event) {
     }
 });
 
+const articlesNotInLocalStorage = [
+{date: '2/3/24',
+content: 'I enacted my superpower: Ladderly with John.'
+},
+
+{
+date: '2/10/24',
+content: 'I completed the trial by fire. It went a lot like this: play, pause, play, pause, rewind, play, pause. You get the gist.',
+}
+]
+
+function renderArticles() {
+    const articlesFromLocalStorage = JSON.parse(localStorage.getItem('articles'));
+    const articleSection = document.getElementById('articles');
+    const articlesToUse = articlesFromLocalStorage
+        ? articlesFromLocalStorage
+        : articlesNotInLocalStorage 
+
+    for (let article of articlesNotInLocalStorage) {
+        const newArticle = document.createElement('article');
+
+        //Set date
+        const date = document.createElement('h2');
+        date.classList.add('date');
+        date.textContent = article.date;
+        newArticle.appendChild(date);
+
+        //Set content
+        const content = document.createElement('p');
+        content.textContent = article.content;
+        newArticle.appendChild(content);
+
+        //Create delete button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'X';
+        deleteButton.classList.add('delete-btn');
+        newArticle.appendChild(deleteButton);
+
+        //Append article to articles section
+        articleSection.appendChild(newArticle);
+    }
+}
+
+renderArticles()
+
+
 // Function to handle form submission
 document.getElementById('new-entry-form').addEventListener('submit', function(event) {
 event.preventDefault(); // Prevent form submission
@@ -18,7 +64,7 @@ event.preventDefault(); // Prevent form submission
     const backgroundColor = document.getElementById('background-color').value;
 
 // Render the new article
-renderArticle(date, entry, font, backgroundColor);
+renderNewArticle(date, entry, font, backgroundColor);
 
 // Recalculate read time
 calculateAndDisplayReadTime();
@@ -27,7 +73,7 @@ calculateAndDisplayReadTime();
 document.getElementById('new-entry-form').reset();
 });_
 
-function renderArticle(date, content, font, backgroundColor) {
+function renderNewArticle(date, content, font, backgroundColor) {
     // Create a new article element
     const entry = document.createElement('article');
     entry.innerHTML = '<h2 class="date">' + date + '</h2><p>' + content + '</p>';
@@ -47,6 +93,8 @@ function renderArticle(date, content, font, backgroundColor) {
     // Add the new article to the articles section
     document.getElementById('articles').appendChild(entry);
 }
+
+
 
 function getWordCount() {
     let paragraphs = document.getElementsByTagName('p');
