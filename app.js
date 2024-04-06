@@ -16,7 +16,7 @@ content: 'I enacted my superpower: Ladderly with John.'
 date: '2/10/24',
 content: 'I completed the trial by fire. It went a lot like this: play, pause, play, pause, rewind, play, pause. You get the gist.',
 }
-]
+];
 
 function renderArticles() {
     const articlesFromLocalStorage = JSON.parse(localStorage.getItem('articles'));
