@@ -53,6 +53,10 @@ function renderArticles() {
     content.textContent = article.content;
     newArticle.appendChild(content);
 
+    //Apply formatting
+    newArticle.style.fontFamily = article.font;
+    newArticle.style.backgroundColor = article.backgroundColor;
+
     //Create delete button
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
@@ -87,6 +91,8 @@ document
       date: date,
       content: entry,
       id: id,
+      font: font,
+      backgroundColor: backgroundColor,
     };
 
     // Save new article to local storage
