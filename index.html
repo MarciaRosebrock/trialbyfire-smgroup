@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
     <div id="read-time"></div>
     <h1>Learning to Code</h1>
     <h2>This is my journey (take 2) of learning to code.</h2>
-    
+
+    <button onclick="localStorage.clear(); location.reload();">
+      Clear Local Storage
+    </button>
     <section id="articles">
-        <!-- Existing blog articles will go here -->
+      <!-- Existing blog articles will go here -->
     </section>
-    
+
     <section>
-        <form id="new-entry-form">
-            <label for="date">Date:</label>
-            <input type="text" name="date" id="date">
-            <label for="entry">How'd it go?</label>
-            <input type="text" name="entry" id="entry">
-            <!-- Font selection dropdown -->
-            <div class="custom-options">
-                <label for="font-select">Select Font:</label>
-                <select id="font-select">
-                    <option value="Arial, sans-serif">Arial</option>
-                    <option value="Times New Roman, serif">Times New Roman</option>
-                    <option value="Verdana, sans-serif">Verdana</option>
-                </select>
-            </div>
-            <!-- Background color picker -->
-            <div class="custom-options">
-                <label for="background-color">Select Background Color:</label>
-                <input type="color" id="background-color" name="background-color">
-            </div>
-            <input type="submit" name="submit">
-        </form>
+      <form id="new-entry-form">
+        <label for="date">Date:</label>
+        <input type="text" name="date" id="date" />
+        <label for="entry">How'd it go?</label>
+        <input type="text" name="entry" id="entry" />
+        <!-- Font selection dropdown -->
+        <div class="custom-options">
+          <label for="font-select">Select Font:</label>
+          <select id="font-select">
+            <option value="Arial, sans-serif">Arial</option>
+            <option value="Times New Roman, serif">Times New Roman</option>
+            <option value="Verdana, sans-serif">Verdana</option>
+          </select>
+        </div>
+        <!-- Background color picker -->
+        <div class="custom-options">
+          <label for="background-color">Select Background Color:</label>
+          <input type="color" id="background-color" name="background-color" />
+        </div>
+        <input type="submit" name="submit" />
+      </form>
     </section>
-    
+
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
