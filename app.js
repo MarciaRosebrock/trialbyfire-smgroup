@@ -3,6 +3,8 @@ const articlesNotInLocalStorage = [
     date: "2/3/24",
     content: "I enacted my superpower: Ladderly with John.",
     id: "article-0",
+    font: "",
+    backgroundColor: "",
   },
 
   {
@@ -10,6 +12,8 @@ const articlesNotInLocalStorage = [
     content:
       "I completed the trial by fire. It went a lot like this: play, pause, play, pause, rewind, play, pause. You get the gist.",
     id: "article-1",
+    font: "",
+    backgroundColor: "",
   },
 ];
 
@@ -114,10 +118,8 @@ function renderNewArticle(date, content, id, font, backgroundColor) {
   const entry = document.createElement("article");
   entry.innerHTML = '<h2 class="date">' + date + "</h2><p>" + content + "</p>";
 
-  // Add custom font
-  entry.querySelector("p").style.fontFamily = font;
-
-  // Add custom background color
+  // Add custom font and background color
+  entry.style.fontFamily = font;
   entry.style.backgroundColor = backgroundColor;
 
   // Add a delete button to the new article
