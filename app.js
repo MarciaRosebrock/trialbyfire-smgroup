@@ -1,29 +1,53 @@
-// Event listener for delete buttons
-document.getElementById("articles").addEventListener("click", function (event) {
-  if (event.target.classList.contains("delete-btn")) {
-    const article = event.target.closest("article");
-    article.remove();
-    calculateAndDisplayReadTime(); // Recalculate read time after deletion
-  }
-});
-
 const articlesNotInLocalStorage = [
-  { date: "2/3/24", content: "I enacted my superpower: Ladderly with John." },
+  {
+    date: "2/3/24",
+    content: "I enacted my superpower: Ladderly with John.",
+    id: "article-0",
+  },
 
   {
     date: "2/10/24",
     content:
       "I completed the trial by fire. It went a lot like this: play, pause, play, pause, rewind, play, pause. You get the gist.",
+    id: "article-1",
   },
 ];
 
-function renderArticles() {
-  const articlesFromLocalStorage = JSON.parse(localStorage.getItem("articles"));
-  const articleSection = document.getElementById("articles");
-  const articlesToUse = articlesFromLocalStorage || articlesNotInLocalStorage;
+// Save articlesNotInLocalStorage to local storage when the script initializes
+localStorage.setItem("articles", JSON.stringify(articlesNotInLocalStorage));
 
-  for (let article of articlesToUse) {
+// Event listener for delete buttons
+document.getElementById("articles").addEventListener("click", function (event) {
+  if (event.target.classList.contains("delete-btn")) {
+    const article = event.target.closest("article");
+    const articleId = article.id;
+    article.remove();
+    removeFromLocalStorage(articleId); // Remove the article from local storage using its ID
+    calculateAndDisplayReadTime(); // Recalculate read time after deletion
+  }
+});
+
+// Function to remove article from local storage using its ID
+function removeFromLocalStorage(articleId) {
+  let articlesFromLocalStorage =
+    JSON.parse(localStorage.getItem("articles")) || [];
+  const updatedArticles = articlesFromLocalStorage.filter(
+    (article) => article.id !== articleId
+  );
+  localStorage.setItem("articles", JSON.stringify(updatedArticles));
+}
+
+function renderArticles() {
+  const articlesFromLocalStorage =
+    JSON.parse(localStorage.getItem("articles")) || [];
+  const articleSection = document.getElementById("articles");
+
+  for (let i = 0; i < articlesFromLocalStorage.length; i++) {
+    const article = articlesFromLocalStorage[i];
     const newArticle = document.createElement("article");
+
+    //Set id
+    newArticle.id = article.id;
 
     //Set date
     const date = document.createElement("h2");
